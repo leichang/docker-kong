@@ -1,13 +1,12 @@
 FROM centos:7
-MAINTAINER Marco Palladino, marco@mashape.com
+MAINTAINER Yun Zhi Lin, yun@yunspace.com
 
-ENV KONG_VERSION 0.9.8
+ENV KONG_VERSION 0.10.0
 
-RUN yum install -y wget https://cl.ly/2Z3K2S0p3N2H/download/kong-0.10.0rc3release0.10.0.el7.noarch.rpm && \
+RUN yum install -y https://github.com/Mashape/kong/releases/download/$KONG_VERSION/kong-$KONG_VERSION.el7.noarch.rpm && \
     yum clean all
 
-RUN wget -O /usr/local/bin/dumb-init https://github.com/Yelp/dumb-init/releases/download/v1.1.3/dumb-init_1.1.3_amd64 && \
-    chmod +x /usr/local/bin/dumb-init
+COPY config.docker/kong.yml /etc/kong/
 
 COPY docker-entrypoint.sh /docker-entrypoint.sh
 ENTRYPOINT ["/docker-entrypoint.sh"]
