@@ -14,10 +14,5 @@ RUN yum install -y net-tools
 COPY docker-entrypoint.sh /docker-entrypoint.sh
 ENTRYPOINT ["/docker-entrypoint.sh"]
 
-IP_ADDR=`ifconfig eth0 | awk '$1 == "inet" {gsub(/\/.*$/, "", $2); print $2}'`
-echo "SETTING IP_ADDR FOR KONG CLUSTERING TO: ${IP_ADDR}"
-
-export KONG_CLUSTER_LISTEN="${IP_ADDR}:7946"
-
 EXPOSE 8000 8443 8001 7946
 CMD ["kong", "start"]
