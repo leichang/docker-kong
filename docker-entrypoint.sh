@@ -13,5 +13,9 @@ IP_ADDR=`ifconfig "$DEVICE" | awk '$1 == "inet" {gsub(/\/.*$/, "", $2); print $2
 echo "SETTING IP_ADDR FOR KONG CLUSTERING TO: ${IP_ADDR}"
 
 export KONG_CLUSTER_LISTEN="${IP_ADDR}:7946"
+export KONG_SSL_CERT="/server.crt"
+export KONG_SSL_CERT_KEY="/server.key"
+export KONG_ADMIN_SSL_CERT="/server.crt"
+export KONG_ADMIN_SSL_CERT_KEY="/server.key"
 
 exec "$@"

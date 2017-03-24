@@ -13,6 +13,9 @@ RUN yum install -y net-tools
 RUN yum install -y bind-utils
 
 COPY docker-entrypoint.sh /docker-entrypoint.sh
+COPY ssh-key/server.crt /server.crt
+COPY ssh-key/server.nopwd.key /server.key
+
 ENTRYPOINT ["/docker-entrypoint.sh"]
 
 EXPOSE 8000 8443 8001 7946
